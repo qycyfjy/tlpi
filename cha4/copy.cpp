@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
     }
     int destfd = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, RWRWRW);
     if (destfd < 0) {
-        spdlog::error("failed to open {}: {}", argv[2], strerror(errno));
+        helper::ErrExit("failed to open {}: {}", argv[2], strerror(errno));
         return -1;
     }
 
@@ -37,22 +37,22 @@ int main(int argc, char *argv[]) {
     ssize_t nread = 0;
     while ((nread = read(srcfd, buf, BUF_SIZE)) > 0) {
         if (write(destfd, buf, nread) != nread) {
-            spdlog::error("failed to write while buffer: {}", strerror(errno));
+            helper::ErrExit("failed to write while buffer: {}", strerror(errno));
             return -1;
         }
     }
 
     if (nread < 0) {
-        spdlog::error("failed to read src file: {}", strerror(errno));
+        helper::ErrExit("failed to read src file: {}", strerror(errno));
         return -1;
     }
 
     if (close(srcfd) < 0) {
-        spdlog::error("failed to close src file: {}", strerror(errno));
+        helper::ErrExit("failed to close src file: {}", strerror(errno));
         return -1;
     }
     if (close(destfd) < 0) {
-        spdlog::error("failed to close dest file: {}", strerror(errno));
+        helper::ErrExit("failed to close dest file: {}", strerror(errno));
         return -1;
     }
 

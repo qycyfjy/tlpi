@@ -23,4 +23,6 @@ ExternalProject_Add(spdlog
 set(ABSL_BUILD_TESTING OFF)
 add_subdirectory(thirds/abseil-cpp)
 
-add_subdirectory(test)
+add_subdirectory(thirds/fmt)
+
+add_subdirectory(cha4)

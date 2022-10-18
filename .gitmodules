@@ -4,3 +4,6 @@
 [submodule "thirds/abseil-cpp"]
 	path = thirds/abseil-cpp
 	url = https://github.com/abseil/abseil-cpp.git
+[submodule "thirds/fmt"]
+	path = thirds/fmt
+	url = https://github.com/fmtlib/fmt.git

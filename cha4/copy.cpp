@@ -8,13 +8,6 @@
 
 #include "../helper.h"
 
-#ifndef BUF_SIZE
-#define BUF_SIZE 1024
-#endif
-
-constexpr int RWRWRW =
-    S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH;
-
 int main(int argc, char *argv[]) {
     spdlog::set_pattern("%v");
     if (argc != 3) {

@@ -1,0 +1,6 @@
+[submodule "thirds/spdlog"]
+	path = thirds/spdlog
+	url = https://github.com/gabime/spdlog
+[submodule "thirds/abseil-cpp"]
+	path = thirds/abseil-cpp
+	url = https://github.com/abseil/abseil-cpp.git

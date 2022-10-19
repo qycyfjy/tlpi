@@ -1,6 +1,8 @@
 #ifndef HELPER_H_
 #define HELPER_H_
 
+#define SPDLOG_FMT_EXTERNAL
+
 #include <cerrno>
 #include <cstddef>
 #include <cstdio>
@@ -13,8 +15,8 @@
 #include <utility>
 
 #include "ename.c"
-#include "spdlog/spdlog.h"
 #include "fmt/format.h"
+#include "fmt/printf.h"
 
 #ifndef BUF_SIZE
 #define BUF_SIZE 1024
@@ -34,7 +36,7 @@ static void outputError(bool useErr, const char *fmt, Args &&...args) {
             "[{} {}]: ", err >= 0 && err <= MAX_ENAME ? ename[err] : "Unknown",
             strerror(err));
     }
-    spdlog::error("{}{}", errMsg, userMsg);
+    fmt::printf("{}{}", errMsg, userMsg);
     exit(EXIT_FAILURE);
 }
 

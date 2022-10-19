@@ -1,9 +1,9 @@
-#include "helper.h"
-#include "fmt/core.h"
-#include "fmt/format.h"
-#include "spdlog/fmt/bundled/core.h"
 #include <algorithm>
 #include <fcntl.h>
+
+#include "fmt/format.h"
+#include "fmt/printf.h"
+#include "helper.h"
 
 namespace helper {
 int OpenFile(const char *fname, int flags, int mode) {
@@ -14,7 +14,8 @@ int OpenFile(const char *fname, int flags, int mode) {
     return fd;
 }
 
-// TODO: 多次调用的输出连续, 可能的函数签名: HexOutput(const char *data, long len, bool more = false, long cur_pos = 0);
+// TODO: 多次调用的输出连续, 可能的函数签名: HexOutput(const char *data, long
+// len, bool more = false, long cur_pos = 0);
 void HexOutput(const char *data, long len) {
     fmt::print("{:^10} {:02X} {:02X} {:02X} {:02X} {:02X} {:02X} {:02X} {:02X} "
                "{:02X} {:02X} {:02X} {:02X} {:02X} {:02X} {:02X} {:02X} \n",
@@ -24,7 +25,7 @@ void HexOutput(const char *data, long len) {
         auto nbyte = std::min(16l, len);
         auto start = data + idx * 16;
         fmt::print("{:010X} ", idx);
-        for(int i = 0; i < nbyte; ++i) {
+        for (int i = 0; i < nbyte; ++i) {
             fmt::print("{:02X} ", start[i]);
         }
         fmt::print("\n");

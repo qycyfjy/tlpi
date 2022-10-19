@@ -9,6 +9,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(ExternalProject)
 set(STAGING_DIR ${CMAKE_BINARY_DIR}/depcache)
 
+add_compile_definitions(_FILE_OFFSET_BITS=64)
+
 ExternalProject_Add(spdlog
     PREFIX spdlog
     SOURCE_DIR ${PROJECT_SOURCE_DIR}/thirds/spdlog

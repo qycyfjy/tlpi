@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <cstring>
 #include <fcntl.h>
+#include <limits>
 #include <unistd.h>
 
 #include "../helper.h"
@@ -45,7 +46,8 @@ int main(int argc, char *argv[]) {
             if (nread == -1) {
                 helper::ErrExit("failed to read from file");
             } else if (nread == 0) {
-                spdlog::info("eof after read {} bytes: from offset {}", totalread, lseek(fd, 0, SEEK_CUR));
+                spdlog::info("eof after read {} bytes: from offset {}",
+                             totalread, lseek(fd, 0, SEEK_CUR));
             }
             break;
 
@@ -60,6 +62,9 @@ int main(int argc, char *argv[]) {
 
         case 's':
             if (!absl::SimpleAtoi(argv[i] + 1, &offset)) {
+                spdlog::info("offset should between {} - {}",
+                             std::numeric_limits<off_t>::min(),
+                             std::numeric_limits<off_t>::max());
                 spdlog::warn("invalid offset in {}th arg(\"{}\"), seek 0",
                              i + 1, argv[i] + 1);
                 continue;

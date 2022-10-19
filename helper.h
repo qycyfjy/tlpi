@@ -42,9 +42,31 @@ template <typename... Args> void ErrExit(const char *fmt, Args &&...args) {
     outputError(true, fmt, std::forward<Args>(args)...);
 }
 
-int OpenFile(const char* fname, int flags, int mode=0600);
+int OpenFile(const char *fname, int flags, int mode = 0600);
 
-void HexOutput(const char* data, long len);
+void HexOutput(const char *data, long len);
+
+class TempFile {
+  public:
+    TempFile(const char *name_template) {
+        int len = strlen(name_template);
+        fname_ = new char[len];
+        memcpy(fname_, name_template, len);
+        fd_ = mkstemp(fname_);
+    }
+    ~TempFile() {
+        unlink(fname_);
+        delete[] fname_;
+        if (close(fd_) == -1) {
+            ErrExit("failed to close temporary file: {}", fname_);
+        }
+    }
+    int GetFd() const { return fd_; }
+
+  private:
+    int fd_;
+    char *fname_;
+};
 } // namespace helper
 
 #endif
